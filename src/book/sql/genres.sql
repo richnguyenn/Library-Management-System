@@ -1,0 +1,4 @@
+CREATE TABLE genres (
+    gid SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL
+);

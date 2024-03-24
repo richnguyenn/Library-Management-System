@@ -1,0 +1,11 @@
+CREATE TABLE books (
+    bid SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    author VARCHAR(255) NOT NULL,
+    isbn VARCHAR(20) NOT NULL,
+    publication_year INTEGER DEFAULT EXTRACT(YEAR FROM NOW()),
+    description TEXT DEFAULT '',
+    quantity_available INTEGER DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
