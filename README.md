@@ -33,7 +33,7 @@ This project implements a RESTful API for managing a library system. It allows p
   ```bash
   npm install
   ```
-4. Set up your PostgreSQL database and update the connection details in the project.
+4. Set up your PostgreSQL database and update the connection using the files located in the project.
 
 5. Start the server
   ```bash
