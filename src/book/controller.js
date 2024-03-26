@@ -3,24 +3,37 @@ const queries = require('./queries')
 
 const getBooks = (req, res) => {
   pool.query(queries.getBooks, (error, results) => {
-    if (error) throw error;
+    if (error) {
+      console.error('Error fetching books:', error);
+      return res.status(500).send('Internal server error');
+    }
     res.status(200).json(results.rows);
   });
 };
 
-const getBookById = (req, res) => {
-  const bid = parseInt(req.params.bid);
-  pool.query(queries.getBookById, [bid], (error, results) => {
-    if (error) throw error;
-    res.status(200).json(results.rows);
-  });
-};
+const getBook = (req, res) => {
+  const pathSeg1 = req.params.pathSeg1;
+  const pathSeg2 = req.params.pathSeg2;
 
-const getBookByISBN = (req, res) => {
-  const isbn = req.params.isbn;
-  pool.query(queries.getBookByISBN, [isbn], (error, results) => {
-    if (error) throw error;
-    res.status(200).json(results.rows);
+  let pathQuery = '';
+
+  if (pathSeg1 === 'id') {
+    pathQuery = queries.getBookById;
+  } else if (pathSeg1 === 'isbn') {
+    pathQuery = queries.getBookByISBN;
+  } else {
+    return res.status(400).send('The link you are looking for does not exist');
+  }
+  
+  pool.query(pathQuery, [pathSeg2], (error, results) => {
+    if (error) {
+      console.error('Error fetching book:', error);
+      return res.status(500).send('Internal Server error');
+    }
+    if (results.rows.length === 0) {
+      return res.status(404).send('Book could not be found');
+    }
+    res.status(200).json(results.rows[0]);
   });
 };
 
@@ -49,7 +62,6 @@ const addBook = (req, res) => {
 
 module.exports = {
   getBooks,
-  getBookById,
-  getBookByISBN,
   addBook,
+  getBook,
 };
