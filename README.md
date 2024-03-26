@@ -20,9 +20,9 @@ This project implements a RESTful API for managing a library system. It allows p
 
 1. Clone the repository:
 
-   ```bash
-   git clone https://github.com/richnguyenn/Library-Management-System.git
-   ```
+  ```bash
+  git clone https://github.com/richnguyenn/Library-Management-System.git
+  ```
 2. Navigate to the project directory:
 
   ```bash
