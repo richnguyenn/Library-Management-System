@@ -86,9 +86,39 @@ const deleteBook = (req, res) => {
   });
 };
 
+const updateBookQuantity = (req, res) => {
+  const pathSeg1 = req.params.pathSeg1;
+  const pathSeg2 = req.params.pathSeg2;
+  const { quantity_available } = req.body;
+
+  let updateQuery = '';
+
+  if (pathSeg1 === 'id') {
+    updateQuery = queries.updateBookQuantityById;
+  } else if (pathSeg1 === 'isbn') {
+    updateQuery = queries.updateBookQuantityByISBN;
+  } else {
+    return res.status(400).send('The link you are looking for does not exist');
+  }
+
+  pool.query(updateQuery, [quantity_available, pathSeg2], (error, results) => {
+    if (error) {
+      console.error('Error updating quantity available:', error);
+      return res.status(500).send('Internal server error');
+    }
+    if (results.rowCount === 0) {
+      return res.status(404).send('Book not found');
+    }
+    res.status(200).send('Quantity available updated successfully');
+  });
+};
+
+
+
 module.exports = {
   getBooks,
   addBook,
   getBook,
   deleteBook,
+  updateBookQuantity,
 };

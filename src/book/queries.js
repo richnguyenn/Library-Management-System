@@ -12,6 +12,10 @@ const deleteBookById = 'DELETE FROM books WHERE bid = $1';
 
 const deleteBookByISBN = 'DELETE FROM books WHERE isbn = $1';
 
+const updateBookQuantityById = 'UPDATE books SET quantity_available = $1 WHERE bid = $2';
+
+const updateBookQuantityByISBN = 'UPDATE books SET quantity_available = $1 WHERE isbn = $2';
+
 module.exports = {
   getBooks,
   getBookById,
@@ -20,4 +24,6 @@ module.exports = {
   addBook,
   deleteBookById,
   deleteBookByISBN,
+  updateBookQuantityById,
+  updateBookQuantityByISBN,
 };
