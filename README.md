@@ -39,6 +39,9 @@ This project implements a RESTful API for managing a library system. It allows p
   ```bash
   npm start
   ```
+  Or start the server by typing
+  ```bash
+  node .\server.js
 
 6. Open your web browser and go to http://localhost:3000 to access the application.
 
