@@ -60,8 +60,35 @@ const addBook = (req, res) => {
   });
 };
 
+const deleteBook = (req, res) => {
+  const pathSeg1 = req.params.pathSeg1;
+  const pathSeg2 = req.params.pathSeg2;
+
+  let pathQuery = '';
+
+  if (pathSeg1 === 'id') {
+    pathQuery = queries.deleteBookById;
+  } else if (pathSeg1 === 'isbn') {
+    pathQuery = queries.deleteBookByISBN;
+  } else {
+    return res.status(400).send('The link you are looking for does not exist');
+  }
+
+  pool.query(pathQuery, [pathSeg2], (error, results) => {
+    if (error) {
+      console.error('Error deleting book:', error);
+      return res.status(500).send('Internal server error');
+    }
+    if (!results.rowCount === 0) {
+      return res.status(404).send('Book not found');
+    }
+    res.status(200).send('Book deleted successfully');
+  });
+};
+
 module.exports = {
   getBooks,
   addBook,
   getBook,
+  deleteBook,
 };
