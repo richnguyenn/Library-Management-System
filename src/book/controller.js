@@ -113,8 +113,6 @@ const updateBookQuantity = (req, res) => {
   });
 };
 
-
-
 module.exports = {
   getBooks,
   addBook,
