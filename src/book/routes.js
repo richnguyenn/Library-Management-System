@@ -4,8 +4,7 @@ const controller = require('./controller');
 const router = Router();
 
 router.get('/', controller.getBooks);
-router.get('/isbn/:isbn', controller.getBookByISBN);
-router.get('/id/:bid', controller.getBookById);
+router.get('/:pathSeg1/:pathSeg2', controller.getBook);
 router.post('/', controller.addBook);
 
 module.exports = router;
